@@ -3,5 +3,6 @@
 
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "Assets/ShaderCommon/Noise.hlsl"
+#include "Assets/ShaderCommon/Field.hlsl"
 
 #endif

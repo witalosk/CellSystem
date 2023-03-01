@@ -13,6 +13,18 @@ namespace CellSystem
         private Vector2Int _resolution = new(512, 512);
 
         [SerializeField]
+        private float _diffusionU = 1.0f;
+
+        [SerializeField]
+        private float _diffusionV = 0.5f;
+
+        [SerializeField]
+        private float _feed = 0.037f;
+
+        [SerializeField]
+        private float _kill = 0.062f;
+
+        [SerializeField]
         private Shader _initShader;
 
         [SerializeField]
@@ -42,6 +54,11 @@ namespace CellSystem
 
         private void Update()
         {
+            _updateMat.SetFloat("_DiffusionU", _diffusionU);
+            _updateMat.SetFloat("_DiffusionV", _diffusionV);
+            _updateMat.SetFloat("_Feed", _feed);
+            _updateMat.SetFloat("_Kill", _kill);
+
             Graphics.Blit(_materialBuffer.Read, _materialBuffer.Write, _updateMat);
             _materialBuffer.Swap();
         }
