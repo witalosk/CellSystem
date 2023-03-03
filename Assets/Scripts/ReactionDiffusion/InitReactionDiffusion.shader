@@ -42,7 +42,9 @@
 
 			float4 frag (v2f i) : SV_Target
 			{
-				return float4(Pcg2d01((uint2)(i.uv * _MainTex_TexelSize.zw)).xxx, 1.0);
+				float u = 1.0;
+				float v = step(length(i.uv - 0.5), 0.1);
+				return float4(u, v, 0.0, 1.0);
 			}
 			ENDHLSL
 		}

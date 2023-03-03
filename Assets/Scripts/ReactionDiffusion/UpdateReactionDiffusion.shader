@@ -51,10 +51,12 @@
 				const float2 this = tex2D(_MainTex, i.uv).xy;
 				float2 lap = Laplacian(_MainTex, _MainTex_TexelSize.xy, i.uv).xy;
 
-				float uSpeed = _DiffusionU * lap.x - this.x * this.y * this.y + _Feed * (1.0 - this.x);
-				float vSpeed = _DiffusionV * lap.y + this.x * this.y * this.y - this.y * (_Feed + _Kill);
-				
-				return float4(this.x + uSpeed * unity_DeltaTime.x, this.y + vSpeed * unity_DeltaTime.x, 0.0, 0.0);
+				float uvv = this.x * this.y * this.y;
+				float uSpeed = _DiffusionU * lap.x - uvv + _Feed * (1.0 - this.x);
+				float vSpeed = _DiffusionV * lap.y + uvv - this.y * (_Feed + _Kill);
+				float dt = 1.0;
+
+				return float4(this.x + uSpeed * dt, this.y + vSpeed * dt, 0.0, 0.0);
 			}
 			ENDHLSL
 		}

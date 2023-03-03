@@ -359,6 +359,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resolution: {x: 512, y: 512}
+  _diffusionU: 1
+  _diffusionV: 0.5
+  _feed: 0.037
+  _kill: 0.062
   _initShader: {fileID: 4800000, guid: 0724bc94ee584a8a8cc6485bb8c8a38e, type: 3}
   _updateShader: {fileID: 4800000, guid: 93a3af8f297d46129705c6edb6a19971, type: 3}
 --- !u!1 &832575517

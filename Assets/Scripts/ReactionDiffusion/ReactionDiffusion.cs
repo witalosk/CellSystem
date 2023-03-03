@@ -13,6 +13,9 @@ namespace CellSystem
         private Vector2Int _resolution = new(512, 512);
 
         [SerializeField]
+        private int _iterationNum = 10;
+
+        [SerializeField]
         private float _diffusionU = 1.0f;
 
         [SerializeField]
@@ -59,8 +62,11 @@ namespace CellSystem
             _updateMat.SetFloat("_Feed", _feed);
             _updateMat.SetFloat("_Kill", _kill);
 
-            Graphics.Blit(_materialBuffer.Read, _materialBuffer.Write, _updateMat);
-            _materialBuffer.Swap();
+            for (int i = 0; i < _iterationNum; i++)
+            {
+                Graphics.Blit(_materialBuffer.Read, _materialBuffer.Write, _updateMat);
+                _materialBuffer.Swap();
+            }
         }
 
     }
