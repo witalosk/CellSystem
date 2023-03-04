@@ -2,6 +2,7 @@ using System;
 using CellSystem.Common;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
+using System.Linq;
 
 namespace CellSystem
 {
@@ -36,10 +37,14 @@ namespace CellSystem
         private DoubleBuffer _materialBuffer;
         private Material _initMat;
         private Material _updateMat;
+
+        private IMousePositionProvider _mousePositionProvider;
      
         private void Start()
         {
-            _materialBuffer = new DoubleBuffer(_resolution.x, _resolution.y, 0, GraphicsFormat.R32G32_SFloat, FilterMode.Point);
+            _mousePositionProvider = FindObjectsOfType<Component>().FirstOrDefault(c => c is IMousePositionProvider) as IMousePositionProvider;
+
+            _materialBuffer = new DoubleBuffer(_resolution.x, _resolution.y, 0, GraphicsFormat.R32G32_SFloat, FilterMode.Point, TextureWrapMode.Repeat);
             _initMat = new Material(_initShader);
             _updateMat = new Material(_updateShader);
             
@@ -61,6 +66,7 @@ namespace CellSystem
             _updateMat.SetFloat("_DiffusionV", _diffusionV);
             _updateMat.SetFloat("_Feed", _feed);
             _updateMat.SetFloat("_Kill", _kill);
+            _updateMat.SetVector("_MousePosition", _mousePositionProvider.MousePosition);
 
             for (int i = 0; i < _iterationNum; i++)
             {

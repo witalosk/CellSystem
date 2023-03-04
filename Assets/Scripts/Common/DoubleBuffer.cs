@@ -8,16 +8,18 @@ namespace CellSystem.Common
         public RenderTexture Read { get; set; }
         public RenderTexture Write { get; set; }
         
-        public DoubleBuffer(int width, int height, int depth, GraphicsFormat format, FilterMode filterMode = FilterMode.Bilinear)
+        public DoubleBuffer(int width, int height, int depth, GraphicsFormat format, FilterMode filterMode = FilterMode.Bilinear, TextureWrapMode wrapMode = TextureWrapMode.Clamp)
         {
             Read = new RenderTexture(width, height, depth, format)
             {
-                filterMode = filterMode
+                filterMode = filterMode,
+                wrapMode = wrapMode
             };
             
             Write = new RenderTexture(width, height, depth, format)
             {
-                filterMode = filterMode
+                filterMode = filterMode,
+                wrapMode = wrapMode
             };
         }
 

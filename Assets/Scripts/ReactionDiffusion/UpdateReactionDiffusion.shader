@@ -33,6 +33,8 @@
 			float _DiffusionV;	// 0.5
 			float _Feed;	// 0.037
 			float _Kill;	// 0.062
+
+			float3 _MousePosition;
 			
 			sampler2D _MainTex;				// Input
 			float4 _MainTex_TexelSize;
@@ -50,6 +52,11 @@
 			{
 				const float2 this = tex2D(_MainTex, i.uv).xy;
 				float2 lap = Laplacian(_MainTex, _MainTex_TexelSize.xy, i.uv).xy;
+
+				if (_MousePosition.z > 0.5 && distance(_MousePosition.xy, i.uv) < 0.05)
+				{
+					_Feed = 0.0;
+				}
 
 				float uvv = this.x * this.y * this.y;
 				float uSpeed = _DiffusionU * lap.x - uvv + _Feed * (1.0 - this.x);
